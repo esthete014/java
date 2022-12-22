@@ -79,33 +79,30 @@ public class clock_seconds extends clock {
         return arrowSeconds;
     }
 
-    public void plusTime(int aH, int aM, int aS){
-        if (aH >= 0 ) {
-            this.arrowHours += aH;
-            if (this.arrowHours > 12) {
-                this.arrowHours %= 12;
+
+    public void plusTime(types_arrow type, int value) {
+        if (value >= 0) {
+            if (type == clock_interface.types_arrow.H) {
+                this.arrowHours += value;
+                if (this.arrowHours > 23) {
+                    this.arrowHours %= 24;
+                }
+            }
+            else if (type == clock_interface.types_arrow.M) {
+                this.arrowMinutes += value;
+                if (this.arrowMinutes > 59) {
+                    this.arrowMinutes %= 60;
+                }
+            }
+            else if (type == clock_interface.types_arrow.S) {
+                this.arrowSeconds += value;
+                if (this.arrowSeconds > 59) {
+                    this.arrowSeconds %= 60;
+                }
             }
         }
         else {
-            throw new NullPointerException("Exception: Hours < 0!");
-        }
-        if (aM >= 0) {
-            this.arrowMinutes += aM;
-            if (this.arrowMinutes > 12) {
-                this.arrowMinutes %= 12;
-            }
-        }
-        else {
-            throw new NullPointerException("Exception: Minutes < 0");
-        }
-        if (aS >= 0) {
-            this.arrowSeconds += aS;
-            if (this.arrowSeconds > 60) {
-                this.arrowSeconds %= 60;
-            }
-        }
-        else {
-            throw new NullPointerException("Exception: Seconds < 0");
+            throw new NullPointerException("Exception: set_time value < 0");
         }
     }
 
@@ -132,19 +129,19 @@ public class clock_seconds extends clock {
         if (value >= 0) {
             if (type == clock_interface.types_arrow.H) {
                 this.arrowHours = value;
-                if (this.arrowHours > 12) {
-                    this.arrowHours %= 12;
+                if (this.arrowHours > 23) {
+                    this.arrowHours %= 24;
                 }
             }
             else if (type == clock_interface.types_arrow.M) {
                 this.arrowMinutes = value;
-                if (this.arrowMinutes > 12) {
-                    this.arrowMinutes %= 12;
+                if (this.arrowMinutes > 59) {
+                    this.arrowMinutes %= 60;
                 }
             }
             else if (type == clock_interface.types_arrow.S) {
                 this.arrowSeconds = value;
-                if (this.arrowSeconds > 60) {
+                if (this.arrowSeconds > 59) {
                     this.arrowSeconds %= 60;
                 }
             }

@@ -1,4 +1,4 @@
-public class clock {
+public class clock implements clock_interface{
     protected String name;
     protected int arrowHours;
     protected int arrowMinutes;
@@ -67,28 +67,29 @@ public class clock {
         return arrowMinutes;
     }
 
-    public void plusTime(int aH, int aM){
-        if (aH >= 0 ) {
-            this.arrowHours += aH;
-            if (this.arrowHours > 12) {
-                this.arrowHours %= 12;
+
+    public void plusTime(types_arrow type, int value) {
+        if (value >= 0) {
+            if (type == clock_interface.types_arrow.H) {
+                this.arrowHours += value;
+                if (this.arrowHours > 23) {
+                    this.arrowHours %= 24;
+                }
+            }
+            else if (type == clock_interface.types_arrow.M) {
+                this.arrowMinutes += value;
+                if (this.arrowMinutes > 59) {
+                    this.arrowMinutes %= 60;
+                }
             }
         }
         else {
-            throw new NullPointerException("Exception: Hours < 0!");
-        }
-        if (aM >= 0) {
-            this.arrowMinutes += aM;
-            if (this.arrowMinutes > 12) {
-                this.arrowMinutes %= 12;
-            }
-        }
-        else {
-            throw new NullPointerException("Exception: Minutes < 0");
+            throw new NullPointerException("Exception: set_time value < 0");
         }
     }
 
-    @Override
+
+
     public String toString() {
         return "Clock{" +
                 "name='" + name + '\'' +
